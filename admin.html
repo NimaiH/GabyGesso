@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Ateliê Meu Guia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos exclusivos para a página Admin */
+        .admin-container { max-width: 800px; margin: 40px auto; background: var(--branco); padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(193, 154, 91, 0.2); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--vermelho); font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: var(--font-text); outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--vermelho); }
+        #resultado-json { width: 100%; height: 150px; margin-top: 20px; background: #2d2d2d; color: #a4d043; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px; border: none; resize: vertical; }
+        .btn-copiar { margin-top: 10px; background-color: var(--dourado); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+        .btn-copiar:hover { background-color: #a8854a; }
+        .aviso { background-color: var(--bege-fundo); padding: 15px; border-radius: 8px; margin-bottom: 30px; font-size: 0.9rem; color: var(--texto-escuro); border-left: 4px solid var(--dourado); }
+    </style>
+</head>
+<body>
+
+    <div class="container admin-container">
+        <div class="section-title-red">Gerador de Produtos (JSON)</div>
+        
+        <div class="aviso">
+            <strong>Como usar:</strong> Preencha os dados da peça abaixo. O sistema vai gerar o código. Copie o código e cole dentro do arquivo <code>data/produtos.json</code>, lembrando de separar cada produto com uma vírgula!
+        </div>
+
+        <form id="adminForm">
+            <div class="form-group">
+                <label>ID (Número do Produto - ex: 21)</label>
+                <input type="number" id="idProd" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Nome da Peça</label>
+                <input type="text" id="nomeProd" placeholder="Ex: Exu Caveira" required>
+            </div>
+
+            <div class="form-group">
+                <label>Categoria</label>
+                <select id="catProd" required>
+                    <option value="Exus">Exus</option>
+                    <option value="Pombagiras">Pombagiras</option>
+                    <option value="Caboclos">Caboclos</option>
+                    <option value="Pretos Velhos">Pretos Velhos</option>
+                    <option value="Orixás">Orixás</option>
+                    <option value="Erês">Erês</option>
+                    <option value="Ciganos">Ciganos</option>
+                    <option value="Baianos">Baianos</option>
+                    <option value="Malandros">Malandros</option>
+                    <option value="Boiadeiros">Boiadeiros</option>
+                    <option value="Marinheiros">Marinheiros</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Altura (em cm)</label>
+                <input type="text" id="altProd" placeholder="Ex: 30 cm" required>
+            </div>
+
+            <div class="form-group">
+                <label>Preço (R$)</label>
+                <input type="text" id="precoProd" placeholder="Ex: 89,90" required>
+            </div>
+
+            <div class="form-group">
+                <label>Nome do Arquivo da Foto (que está na pasta img)</label>
+                <input type="text" id="imgProd" placeholder="Ex: exu-caveira.jpg" required>
+            </div>
+
+            <div class="form-group">
+                <label>Link da Shopee (Deixe vazio se não tiver)</label>
+                <input type="text" id="shopeeProd" value="https://shopee.com.br/ateliemeuguia">
+            </div>
+
+            <button type="submit" class="btn btn-red" style="width: 100%;">Gerar Código do Produto</button>
+        </form>
+
+        <textarea id="resultado-json" readonly placeholder="O código JSON aparecerá aqui..."></textarea>
+        <button class="btn-copiar" id="btnCopiar" style="display: none;">Copiar Código</button>
+    </div>
+
+    <script>
+        document.getElementById('adminForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Pega os valores preenchidos
+            const id = document.getElementById('idProd').value;
+            const nome = document.getElementById('nomeProd').value;
+            const categoria = document.getElementById('catProd').value;
+            const altura = document.getElementById('altProd').value;
+            const preco = document.getElementById('precoProd').value;
+            const imagem = document.getElementById('imgProd').value;
+            let shopee = document.getElementById('shopeeProd').value;
+            if(!shopee) shopee = "https://shopee.com.br/ateliemeuguia";
+
+            const msgWhats = `Olá! Tenho interesse no produto ${nome}.`;
+
+            // Monta o objeto JSON formatado
+            const novoProduto = `  { "id": ${id}, "nome": "${nome}", "categoria": "${categoria}", "altura": "${altura}", "preco": "${preco}", "descricao": "Imagem artesanal em gesso/biscuit.", "imagem": "img/${imagem}", "shopee": "${shopee}", "whatsappMensagem": "${msgWhats}" }`;
+
+            // Exibe na tela
+            const textarea = document.getElementById('resultado-json');
+            textarea.value = novoProduto;
+            
+            // Mostra o botão de copiar
+            document.getElementById('btnCopiar').style.display = 'block';
+        });
+
+        // Função de copiar para a área de transferência
+        document.getElementById('btnCopiar').addEventListener('click', function() {
+            const textarea = document.getElementById('resultado-json');
+            textarea.select();
+            document.execCommand('copy');
+            this.textContent = 'Copiado com sucesso!';
+            this.style.backgroundColor = '#4CAF50';
+            
+            setTimeout(() => {
+                this.textContent = 'Copiar Código';
+                this.style.backgroundColor = 'var(--dourado)';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

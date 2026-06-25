@@ -1,0 +1,501 @@
+/* --- VARIÁVEIS DA NOVA PALETA --- */
+:root {
+    --vermelho: #9A161A;         /* Vermelho escuro principal */
+    --vermelho-hover: #7a1114;
+    --dourado: #C19A5B;          /* Dourado dos detalhes */
+    --bege-fundo: #FDF3F0;       /* Cor de fundo principal (rosa/bege claro) */
+    --bege-cards: #FCF5F3;       /* Fundo dos cards */
+    --texto-escuro: #333333;
+    --texto-claro: #666666;
+    --branco: #FFFFFF;
+    
+    --font-heading: 'Playfair Display', serif;
+    --font-text: 'Montserrat', sans-serif;
+    
+    --transition: all 0.3s ease;
+}
+
+/* --- RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-text);
+    background-color: var(--bege-fundo);
+    color: var(--texto-escuro);
+    line-height: 1.6;
+    /* Adiciona uma textura suave ao fundo simulando as rosas */
+    background-image: radial-gradient(circle at 10% 20%, rgba(255, 235, 235, 0.4) 0%, transparent 50%),
+                      radial-gradient(circle at 90% 80%, rgba(255, 235, 235, 0.4) 0%, transparent 50%);
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- TIPOGRAFIA DE TÍTULOS --- */
+.section-title-gold, .section-title-red {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-family: var(--font-text);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.section-title-gold { color: var(--dourado); }
+.section-title-red { color: var(--vermelho); margin-top: 60px; }
+
+/* --- BOTÕES --- */
+.btn {
+    padding: 12px 25px;
+    border-radius: 30px; /* Formato de pílula */
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 2px solid transparent;
+}
+
+.btn-red {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
+
+.btn-red:hover { background-color: var(--vermelho-hover); }
+
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--vermelho);
+    color: var(--vermelho);
+}
+
+.btn-outline:hover {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
+
+.btn-outline-gold {
+    background-color: transparent;
+    border-color: var(--dourado);
+    color: var(--dourado);
+    margin: 40px auto;
+    display: flex;
+}
+
+/* --- HEADER --- */
+header {
+    background-color: rgba(253, 243, 240, 0.95);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(193, 154, 91, 0.2);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h2 {
+    font-size: 1.2rem;
+    color: var(--vermelho);
+    line-height: 1.1;
+    font-family: var(--font-text);
+    font-weight: 700;
+}
+
+.nav-menu ul { display: flex; gap: 30px; }
+.nav-menu a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--vermelho);
+    text-transform: uppercase;
+}
+
+.nav-menu a:hover, .nav-menu a.active {
+    border-bottom: 2px solid var(--dourado);
+    padding-bottom: 5px;
+}
+
+.mobile-menu-btn {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--vermelho);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- HERO SECTION --- */
+#hero {
+    margin-top: 80px;
+    padding: 80px 0;
+    /* Fundo com gradiente suave + a imagem PNG */
+    background: linear-gradient(to right, rgba(253, 243, 240, 0.95) 45%, rgba(253, 243, 240, 0.4)), url('../img/fundo-gessos.png') center/cover no-repeat;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60vh;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.gold-subtitle {
+    color: var(--dourado);
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    color: var(--vermelho);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--texto-escuro);
+    margin-bottom: 30px;
+}
+
+.hero-buttons { display: flex; gap: 15px; }
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- CORREÇÃO DO CARROSSEL (só layout, não muda o visual dos cards) --- */
+.categorias-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.categorias-carousel {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 5px 30px;
+    cursor: grab;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.categorias-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+/* ESSENCIAL: impede os cards de encolherem e quebrar layout */
+.categorias-carousel .cat-card {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+/* Botões de seta */
+.carousel-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid var(--dourado);
+    color: var(--dourado);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    z-index: 2;
+}
+
+.carousel-btn:hover {
+    background: var(--dourado);
+    color: var(--branco);
+}
+
+/* --- CATÁLOGO --- */
+.search-bar {
+    max-width: 400px;
+    margin: 0 auto 40px;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--vermelho);
+    background-color: transparent;
+    font-family: var(--font-text);
+    outline: none;
+}
+
+.search-bar i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--vermelho);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+/* Product Card - Estilo Imagem */
+.card {
+    background: var(--branco);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: var(--transition);
+    border: 1px solid rgba(193, 154, 91, 0.2);
+}
+
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+
+.card-img {
+    width: 100%;
+    height: 280px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1rem;
+    color: var(--vermelho);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.card-details p {
+    font-size: 0.85rem;
+    color: var(--texto-claro);
+    margin-bottom: 10px;
+}
+
+.card-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--vermelho);
+    margin-bottom: 15px;
+}
+
+/* Botões do Card (Circulares/Pílulas) */
+.card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.btn-icon-red {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
+.btn-icon-red:hover { background-color: var(--vermelho-hover); }
+
+.btn-icon-outline {
+    background-color: transparent;
+    border: 2px solid var(--vermelho);
+    color: var(--vermelho);
+}
+.btn-icon-outline:hover {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
+
+/* --- INFO BAR (Faixa de Benefícios) --- */
+.info-bar {
+    background-color: var(--vermelho);
+    color: var(--branco);
+    padding: 40px 0;
+    margin-top: 60px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.info-item i {
+    font-size: 2.5rem;
+    color: var(--dourado);
+}
+
+.info-item h4 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.info-item p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.8);
+}
+
+/* --- PRE FOOTER & FOOTER --- */
+.pre-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    padding: 60px 20px;
+}
+
+.pre-footer h3 {
+    color: var(--vermelho);
+    margin-bottom: 20px;
+    font-family: var(--font-text);
+    font-size: 1.1rem;
+}
+
+.pre-footer ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--texto-escuro);
+}
+
+.pre-footer ul li i { color: var(--vermelho); }
+
+.social-icons { display: flex; gap: 15px; }
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--vermelho);
+    color: var(--vermelho);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+.social-icons a:hover {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
+
+footer {
+    background-color: var(--vermelho);
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+}
+
+/* --- ANIMAÇÕES --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 992px) {
+    .hero-container { flex-direction: column; text-align: center; }
+    .hero-buttons { justify-content: center; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .info-grid { grid-template-columns: repeat(2, 1fr); }
+    .pre-footer { grid-template-columns: 1fr; text-align: center; }
+    .social-icons { justify-content: center; }
+    .pre-footer ul li { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    .btn-header { display: none; }
+    .mobile-menu-btn { display: block; }
+    .nav-menu {
+        display: none; 
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--branco);
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    .nav-menu ul { flex-direction: column; align-items: center; }
+    .grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .hero-content h1 { font-size: 2.5rem; }
+    
+    /* No celular escondemos as setas do carrossel para ter mais espaço, usa-se o toque para arrastar */
+    .carousel-btn { display: none; }
+    .categorias-carousel { padding-left: 20px; padding-right: 20px; }
+    .categorias-wrapper { gap: 0; margin-left: -20px; margin-right: -20px; }
+}
